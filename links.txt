@@ -1,0 +1,5 @@
+Start with udemy videos, refer below links and also explore other link in google and  videos in you tube:
+https://www.kaggle.com/ngyptr/python-nltk-sentiment-analysis/notebook
+
+Check sentimen analysis section in this:
+https://www.analyticsvidhya.com/blog/2017/10/essential-nlp-guide-data-scientists-top-10-nlp-tasks/

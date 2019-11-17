@@ -1,0 +1,55 @@
+NLP:
+I have taken movie comments from IMbd website which  had rating and comments.
+Rating greater than 3 we marked it as  a positive comments and rating less than or equal to 3 as negative comments
+We had around 50k text file.Some having positive and some negative reviews.
+Now we have prepared two csv file with all comments.One with positive comments and another with negative comments
+It will take 10 mins to convert text file to python.For that we will use Python Progress Indicator 
+	(PyPrind, https://pypi.python.org/pypi/PyPrind/) package that I developed several years ago for such purposes. 
+	PyPrind can be installed by executing the pip install pyprind command.
+So we created dataframe with 2 columns , 1st  all the reviews 	and second whether its positive or negative(1 or 0)
+Since the class labels in the assembled dataset are sorted, we will now shuffle DataFrame using the permutation function
+	from the np.random submodule
+Let create - Bag-of-words, which allows us to represent text as numerical feature vectors.
+	To construct a bag-of-words model based on the word counts in the respective documents,
+	we can use the CountVectorizer class implemented in scikit-learn.
+	CountVectorizer takes an array of text data, which can be documents or sentences,
+	and constructs the bag-of-words model for us.
+	By calling the fit_transform method on CountVectorizer, we constructed the vocabulary of the bag-of-words model.
+	In vocabulary we see index is randomly given to each word.
+	Then we  transformed the following three sentences into sparse feature vectors.Where we mention from all words
+	in all the comments, in each line which all words are present and how many time it is present.
+	These values in the feature vectors are also called the raw term frequencies: tf(t,d)
+	—the number of times a term t occurs in a document d.
+	The sequence of items in the bag-of-words model that we just created is also called the 1-gram
+	or unigram model—each item or token in the vocabulary represents a single word.
+	The CountVectorizer class in scikit-learn allows us to use different n-gram models via its ngram_range parameter.
+	While a 1-gram representation is used by default, we could switch to a 2-gram representation by initializing a 
+	new CountVectorizer instance with ngram_range=(2,2).
+Assessing word relevancy via term frequency-inverse document frequency When we are analyzing text data, 
+	we often encounter words that occur across multiple documents from both classes.
+	These frequently occurring words typically don't contain useful or discriminatory information.
+	In this subsection, we will learn about a useful technique called term frequency-inverse document frequency 
+	(tf-idf) that can be used to downweight these frequently occurring words in the feature vectors.
+    tf-idf(t,d) = tf(t,d) * idf(t,d)
+	The scikit-learn library implements yet another transformer, the TfidfTransformer class, 
+	that takes the raw term frequencies from the CountVectorizer class as input and transforms them into tf-idfs:
+#Now apply all the concepts studies in moview review dataset
+In the previous subsections, we learned about the bag-of-words model, term bagof-words model,
+ term frequencies, and tf-idfs. However, the first important step— before we build our bag-of-words model—is to
+ clean the text data by stripping it of all unwanted characters.
+ To illustrate why this is important, let's display the last 50 characters from the first document in the 
+ reshuffled movie review dataset.
+#Let us now apply our preprocessor function to all the movie reviews in our DataFrame:
+#Processing documents iIn the context of tokenization, another useful technique is word stemming, which is the process
+ of transforming a word into its root form. nto tokens 
+One way to tokenize documents is to split them into individual words by splitting the cleaned documents at
+	its whitespace characters
+In the context of tokenization, another useful technique is word stemming, 
+	which is the process of transforming a word into its root form. 
+#stop-word removal - Examples of stopwords are is, and, has, and like. 
+Removing stop-words can be useful if we are working with raw or normalized term frequencies rather than tf-idfs, 
+which are already down weighting frequently occurring words. 
+#Training a logistic regression model for document classification 
+In this section, we will train a logistic regression model to classify the movie reviews into positive 
+and negative reviews. First, we will divide the DataFrame of cleaned text documents into 25,000 documents for training 
+and 25,000 documents for testing
